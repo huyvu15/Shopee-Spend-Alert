@@ -1,26 +1,40 @@
 ---
-title : "Introduction"
+title : "Giới thiệu"
 date :  "`r Sys.Date()`" 
 weight : 1 
 chapter : false
 pre : " <b> 1. </b> "
 ---
 
-## Introduction to Amazon VPC
+# Nhận thông báo chi tiêu cho hoạt động mua sắp tại Shopee
 
-Amazon Virtual Private Cloud (Amazon VPC) is a **Virtual Private Cloud**—a customized virtual network hosted within the AWS Cloud and isolated from the external world. This concept resembles the design and implementation of a distinct standalone network environment in an on-premise data center, a practice still widely employed across many countries.
+#### Tổng quan
 
-Within this dedicated VPC, users possess comprehensive control over their virtual network environment. This control encompasses the initiation and operation of AWS resources, the ability to choose IP address ranges, establish network subnets, and configure routing tables and network gateways. Secure and convenient resource and application access within the VPC is facilitated through both IPv4 and IPv6 protocols.
+Chúng ta đều biết rằng việc tự động hóa các quy trình kinh doanh có thể mang lại nhiều lợi ích về mặt thời gian, hiệu quả và tiết kiệm chi phí và rất nhiều sự tiện dụng. Trong bài workshop hôm nay, chúng ta sẽ tập trung vào việc xây dựng một hệ thống gửi thông báo **số tiền** đã chi cho các hoạt động mua sắp trên Shopee thông qua Gmail, bằng cách sử dụng các dịch vụ mạnh mẽ của Amazon Web Services (AWS).
 
-The term "Region" refers to vast clusters of AWS data centers situated within specific territories. Multiple VPCs can be established within a single region, with each VPC differentiated by its unique IP address space range. The IPv4 address range is defined by selecting a Classless Inter-Domain Routing (CIDR) notation, such as 10.0.0.0/16. Once created, the Amazon VPC address range remains immutable. These ranges can span from as extensive as /16 (equivalent to 65536 available addresses) to as limited as /28 (allowing for 16 available addresses). Crucially, these ranges must not overlap with any other connected networks.
+Đồng thời chúng ta cùng làm quen với các Services phổ biến như sau:
 
-The Amazon VPC service was introduced subsequent to the launch of Amazon EC2. Consequently, AWS provided two distinct networking platforms for a period: EC2-Classic and EC2-VPC. EC2-Classic established a single flat network where all Amazon EC2 instances operated, enabling shared connectivity among AWS clients. However, as of December 2013, AWS exclusively supports EC2-VPC. Each region includes a default VPC along with a default subnet featuring a CIDR block of 172.31.0.0/16.
+**1. AWS Lambda Function:** Lambda Function cho phép chúng ta thực thi mã một cách linh hoạt mà không cần quản lý máy chủ.
 
-## Contents
+**2. Amazon EventBridge:** EventBridge giúp chúng ta lên lịch và kiểm soát các sự kiện trong hệ thống của mình như điều khiển các lambda function chạy vào mỗi đầu tháng.
 
-- [API](1.1-subnets/)
-- [Crawl](1.2-routetable/)
-- [Layer](1.3-internetgateway/)
-<!-- - [NAT Gateway](1.4-natgateway/) -->
+**3. Amazon S3:** S3 là một trong số các dịch vụ lưu trữ đám mây của AWS. Là một trong những giải pháp hữu hiệu để xây dựng data lake cho doanh nghiệp. Trong phần thực hành này S3 sẽ được sử dụng để lưu trữ các tệp đính kèm trong các email mà chúng ta sẽ gửi(file dữ liệu, ảnh phân tích). 
 
-In the following sections, we will delve into the fundamental concepts of VPC.
+Tuy nhiên để đơn giản và demo một cách thuận tiện nhất có thể bài lab chỉ gửi thông báo số tiền chi tiêu trong tháng trước thông qua email. Do một ngày mình check email khá nhiều nên mình quyết định dùng nền tảng này để thực hiện. Ngoài ra có thể gửi thông báo qua zalo, telegram thông qua api. 
+
+Ngôn ngữ chính để phục vụ workshop này là python 3.10
+
+#### Ý tưởng: 
+Crawl dữ liệu từ đơn mua hàng cá nhân trên shopee đẩy dữ liệu vào S3, dùng thư viện pandas để xử lý dữ liệu và tính toán để trả về số tiền đã chi tiêu trong tháng trước đó. Dùng EventBridge để hẹn giờ chạy Lambda Function.
+
+
+#### Nội dung
+
+1. [Giới thiệu](1-introduce/)
+2. [Tường lửa trong VPC](2-firewallinvpc/)
+3. [Các bước chuẩn bị](3-prerequiste/) 
+4. [Lấy cookie từ shopee](4-createec2server/)
+5. [Tạo schedule cho EventBridge](5-vpnsitetosite/)
+6. [Dọn dẹp tài nguyên](6-cleanup/)
+
+Bây giờ chúng ta sẽ cùng nhau đi qua các khái niệm cơ bản nhất của Lambda Function nhé.

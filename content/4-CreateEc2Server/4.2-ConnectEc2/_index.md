@@ -1,173 +1,120 @@
 ---
-title : "Test Connection"
-date : "`r Sys.Date()`"
-weight : 2
+title : "Trích xuất thông tin từ file json"
+date :  "`r Sys.Date()`" 
+weight : 2 
 chapter : false
 pre : " <b> 4.2 </b> "
 ---
 
-## Checking Connection
+#### Trích xuất thông tin từ file json(Chỉ xem)
 
-> ℹ️ **Note:** There are several ways to connect to EC2 instances. You can follow the instructions to [connect to EC2 using PuTTY](https://000004.awsstudygroup.com/en/4-launchlinuxinstance/4.2-connectlinuxinstance/). In this lab, we will use [MobaXterm](https://mobaxterm.mobatek.net/) to establish the connection.
-
-1. **Download MobaXterm**
-
-   ![Download MobaXterm](https://mobaxterm.mobatek.net/download.html)
-
-   ![Create VPC](/images/4-CreateEc2Server/4.2-ec2connect/00019-ec2connect.png?featherlight=false&width=90pc)
-
-2. **Access the EC2 Page**
-
-   - Go to the **EC2** page.
-   - Select **Instances**.
-   - Choose the **EC2 Public** instance.
-   - Select **Details**.
-   - Locate the **Public IPv4 address**.
-
-   ![Create VPC](/images/7/0001.png?featherlight=false&width=90pc)
-
-3. **Using MobaXterm**
-
-   - After downloading MobaXterm, extract and open it.
-   - Select **Session**.
-
-   ![Create VPC](/images/7/0002.png?featherlight=false&width=90pc)
-
-4. **Configuring Session Settings**
-
-   - In the **Session settings** interface, choose **SSH**.
-
-   ![Create VPC](/images/7/0002.png?featherlight=false&width=90pc)
-
-5. **Session Settings Continued**
-
-   - In the **Session settings** interface:
-     - Enter the **Remote host** (Public IPv4 address).
-     - Specify the **username** as `ec2-user`.
-     - Choose the **Use private key** option and provide the path to the `aws-keypair.pem` file created and downloaded during EC2 instance creation.
-
-   ![Create VPC](/images/7/0002.png?featherlight=false&width=90pc)
-
-6. **Successful Connection**
-
-   ![Create VPC](/images/7/0003.png?featherlight=false&width=90pc)
-
-7. **Testing Internet Connection of EC2 Public**
-
-   Execute the following command to test the internet connection of the EC2 Public instance
-
-
-```
-ping amazon.com -c5
-```
-
-![Create VPC](/images/7/0004.png?featherlight=false&width=90pc)
-
-8. Make a ping to **EC2 private**
-
-```
-ping <IP Private EC2 Private>
-```
-
-![Create VPC](/images/7/0005.png?featherlight=false&width=90pc)
-
-
-
-## Connect to the EC2 Private Server and Check Internet Connection
-
-9. Access to **EC2**
-
-   - Select **Instances**
-   - Select **EC2 Private**
-   - Select **Details**
-   - Select **Private IPv4 addresses**
-   - Then connect SSH to **EC2 Public**
-
-![Create VPC](/images/7/0003.png?featherlight=false&width=90pc)
-
-10. Perform a ping test to the EC2 Private's private IP address to test the connection from the EC2 Public server to the EC2 Private server. Use the following command:
-
-
-```
-ping 10.10.4.105 -c5
-```
-![Create VPC](/images/7/0005.png?featherlight=false&width=90pc)
-
-11. **EC2 Private** will not have a **public IP address** because we are not assigning this server a public IP. To be able to ssh into **EC2 Private**, we will make an ssh connection from EC2 Public through EC2 Private **private IP address**
-
-     - Download the **pscp** tool to the same folder containing the **aws-keypair.ppk** file to copy the **aws-keypair.pem** file from our computer to **EC2 Public** .
-
-{{% notice info %}}
-You download [an RSA and DSA key generation utility](https://the.earth.li/~sgtatham/putty/latest/w64/puttygen.exe) as **puttygen.exe**
+{{% notice note %}}
+Để trích xuất các thông tin theo ý muốn bạn cần có một mức hiểu biết nhất định về cấu trúc file json(thử bằng cách print(response.json())) từ đoạn json trả về để thực hiện đi lần lượt vào từng cái list, dictionary để lấy dữ liệu mong muốn. Công cụ hỗ trợ dễ dàng làm việc với file json hơn **```https://dev.2fbuff.com/   ```**
 {{% /notice %}}
 
-{{% notice info %}}
-You download [an SCP client, i.e. command-line secure file copy](https://the.earth.li/~sgtatham/putty/latest/w64/pscp.exe) is **pscp.exe**
+1. View một đoạn json trả về.
+```python
+{'error': 0,
+ 'data': {'order_data': {'details_list': [{'status': {'status_label': {'text': 'label_order_completed',
+       'tl': False},
+      'header_text': {'text': 'order_status_text_completed_thank_you_shopping',
+       'tl': False},
+      'header_image': 'https://deo.shopeemobile.com/shopee/shopee-orderprocessing-live-vn/completed.png',
+      'list_view_status_label': {'text': 'label_completed', 'tl': False}},
+     'shipping': {'tracking_info': {'driver_phone': '',
+       'driver_name': '',
+       'ctime': 1696224180,
+       'description': 'Đơn hàng đã được giao thành công',
+       'type': 0},
+      'is_multi_parcel': False,
+      'num_parcels': 1,
+      'parcel_no': 1},
+     'info_card': {'order_id': 149752100291872,
+      'order_list_cards': [{'shop_info': {'shop_id': 48311894,
+         'shop_name': 'Bra & Knickers',
+         'user_id': 48313282,
+         'username': 'anannshop',
+         'portrait': 'd664c852e1100082b09a13d09457d93d',
+         'shop_tag': 3},
+        'order_id': 149752100291872,
+        'product_info': {'item_groups': [{'items': [{'item_id': 1602031702,
+             'model_id': 9613089074,
+             'shop_id': 48311894,
+             'name': 'Khăng Choàng Cổ Dạ Len Quàng Nam Nữ Cao Cấp Nhiều Màu Cashmere Hàng Đẹp Giá Rẻ',
+             'model_name': '8 - da sáng',
+             'image': '7e3e7ed202c224dae7641bab1ab0eefd',
+             'amount': 1,
+             'ext_info': {'add_on_deal_id': 0,
+              'is_add_on_sub_item': False,
+              'free_return_day': 0,
+              'is_wholesale': False,
+              'is_pre_order': False,
+              'is_membership_gift': False,
+              'is_free_return': False},
+             'status': 1,
+             'item_price': 2890000000,
+             'price_before_discount': 6500000000,
+             'order_price': 2890000000,
+             'snapshot_id': 16436071430}],
+           'num_items': 1}],
+         'total_num_items': 1}}],
+      'product_count': 1,
+      'subtotal': 1445000000,
+      'final_total': 1445000000},
+     'primary_buttons': [{'id': 24}],
+     'guarantee': {'learn_more_url': 'https://shopee.vn/m/shopee-dam-bao',
+      'is_extend_enabled': False},
+     'secondary_buttons': [{'id': 15}],
+     'list_type': 3},
+     ...
+ }
+}
+```
+
+2. Thực hiện trích xuất thông tin từ đoạn json thu được
+
+```python
+for i in range(0, 301, 5):
+        params['offset'] = i
+        response = requests.get('https://shopee.vn/api/v4/order/get_all_order_and_checkout_list', headers=headers, params=params, cookies=cookies)
+        if response.status_code == 200:
+            data = response.json().get('data').get('order_data').get('details_list')
+            if data is not None:
+                for j in range(len(data)):
+                        order_info = data[j]
+                        main = order_info.get('info_card').get('order_list_cards')[0].get('product_info').get('item_groups')[0].get('items')[0]
+                        main1 = order_info.get('info_card').get('order_list_cards')[0].get('shop_info')
+                        main2 = order_info.get('shipping', {}).get('tracking_info', {})
+                        product_id = main.get('item_id')
+                        shop_id = main1.get('shop_id')
+                        shop_name = main1.get('shop_name')
+                        name = main.get('name')
+                        price = main.get('item_price') / 100000 
+                        amount = main.get('amount')
+                        shop_name = main1.get('shop_name')
+                        status = main2.get('description', 'Đã hủy')
+                        if status == 'Đã hủy':
+                            status = None  
+                            time = None    
+                        else:
+                            time = datetime.datetime.fromtimestamp(main2.get('ctime', 0))
+                    
+                        products.append({
+                            'product_id': product_id,
+                            'shop_id': shop_id,
+                            'product_name': name,
+                            'shop_name': shop_name,
+                            'price': price,
+                            'amount': amount,
+                            'status': status,
+                            'time': time
+                        })
+```
+
+{{% notice note %}}
+Thi thoảng code sẽ bị lỗi do shopee thay đổi cấu trúc của file json trả về. Khi gặp lỗi chỉ cần xóa cái key-value đó đi là được. Thông thường sẽ không có thay đổi nhiều.
 {{% /notice %}}
 
-12. We use **puttygen.exe** to generate key
 
-     - Select **Load**
 
-![Create VPC](/images/4-CreateEc2Server/4.2-ec2connect/0009-ec2connect.png?featherlight=false&width=90pc)
 
-13. Select **aws-keypair.pem**
-
-     - Select **OK**
-     - Select **Save private key** with the name **aws-keypair.ppk**
-
-![Create VPC](/images/4-CreateEc2Server/4.2-ec2connect/00010-ec2connect.png?featherlight=false&width=90pc)
-
-14. Complete the generation key
-
-![Create VPC](/images/4-CreateEc2Server/4.2-ec2connect/00011-ec2connect.png?featherlight=false&width=90pc)
-
-15. Launch **Command Prompt**. Change the path to the folder you just downloaded **pscp**. Run the command below to upload the **aws-keypair.pem** file to the **/home/ec2-user/** directory of the EC2 Public server.
-
-    - You will need to replace the **public IP address of EC2 Public** parameter before running the command.
-
-```
-pscp -i aws-keypair.ppk aws-keypair.pem ec2-user@<EC2 PUBLIC public IP address>:/home/ec2-user/
-```
-
-![Create VPC](/images/4-CreateEc2Server/4.2-ec2connect/00012-ec2connect.png?featherlight=false&width=90pc)
-
-16. Access to **EC2**
-
-     - Select **Instances**
-     - Select **EC2 Public**
-     - Select **Details**
-     - View **Public IPv4 address**
-
-![Create VPC](/images/7/0006.png?featherlight=false&width=90pc)
-
-17. Return to the EC2 connection interface. Make sure you copy the **aws-keypair.pem** file to the **EC2 Public** server, we execute the command
-
-```
-ls
-```
-
-![Create VPC](/images/7/0007.png?featherlight=false&width=90pc)
-
-18. Update the permissions for the **aws-keypair.pem** file by running the **chmod 400 aws-keypair.pem** command. AWS requires the key pair file to be restricted before it can be used to connect to the EC2 server.
-
-```
-chmod 400 aws-keypair.pem
-```
-![Create VPC](/images/7/0008.png?featherlight=false&width=90pc)
-
-19. **SSH** to **EC2 Private** server
-
-```
-ssh -i aws-keypair.pem ec2-user@<EC2 Private server's private IP address>
-```
-
-![Create VPC](/images/7/0009.png?featherlight=false&width=90pc)
-
-20. Perform **ping test to amazon.com**. As you can see, we cannot connect **internet from EC2 Private**. In the next step, we will create **NAT Gateway** to allow the **EC2 Private** server to connect to the internet in the outbound direction. Keep the connection to **EC2 Private** so that we can check the connection to **internet** after finishing creating and configuring **NAT Gateway**.
-
-```
-ping amazon.com
-```
-
-![Create VPC](/images/7/00010.png?featherlight=false&width=90pc)

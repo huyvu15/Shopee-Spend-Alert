@@ -6,47 +6,20 @@ chapter : false
 pre : " <b> 2.3 </b> "
 ---
 
-## VPC Resource Map
+#### VPC Resource Map
 
-To begin, follow these steps to access the VPC Resource Map in the VPC console:
+Để bắt đầu, hãy chọn một VPC đã tồn tại trong bảng điều khiển VPC. Trong phần chi tiết, hãy chọn tab Sơ đồ Tài nguyên. Tại đây, bạn có thể xem các tài nguyên trong VPC của bạn và mối quan hệ giữa các tài nguyên đó.
 
-1. Select an existing VPC.
-2. In the details section, go to the "Resource map" tab.
-3. Here, you can observe the resources within your VPC and the relationships among them.
+Khi trỏ chuột qua một tài nguyên, bạn có thể xem các tài nguyên liên quan và các đường nối được đánh dấu. Nếu bạn nhấp chuột để chọn tài nguyên, bạn có thể xem một số dòng chi tiết và một liên kết để xem chi tiết của tài nguyên đã chọn.
 
-![Create VPC](/images/17/0001.jpg?featherlight=false&width=90pc)
+#### Bắt đầu sử dụng trải nghiệm tạo VPC
 
-Hovering over a resource highlights connected lines and related resources. Clicking on a resource reveals brief details and a link to view further information about that resource.
+Bản đồ tài nguyên Amazon VPC hiện nay có sẵn trong tất cả các Vùng AWS mà Amazon VPC có sẵn, và bạn có thể bắt đầu sử dụng nó từ hôm nay.
 
-## Getting Started with VPC Creation Experience
+Trải nghiệm tạo bản đồ tài nguyên VPC và tạo mới chỉ hiển thị VPC, subnet, bảng định tuyến, cổng tiếp cận Internet, cổng NAT và cổng tiếp cận Amazon S3.
 
-Enhance your workflow for creating a new high-availability three-tier VPC using the VPC creation experience:
+Bản đồ tài nguyên Amazon Virtual Private Cloud (VPC) là một tính năng cho phép bạn xem và quản lý tất cả các tài nguyên trong mạng VPC của bạn tại một nơi. Với bản đồ tài nguyên VPC, bạn có thể xem mối quan hệ giữa VPC, subnet, bảng định tuyến, cổng tiếp cận Internet, cổng NAT và cổng tiếp cận Amazon S3, giúp cho bạn hiểu rõ cấu trúc và kết nối của mạng của bạn.
 
-1. Choose **Create VPC** and then select **VPC and more** in the VPC console.
-2. Preview all VPC resources you're about to create on a single page.
-
-![Create VPC](/images/17/0002.jpg?featherlight=false&width=90pc)
-
-3. **Name tag auto-generation:** Define a prefix for Name tags, influencing the tags for all previewed VPC resources. Customize individual Name tags by clicking on each resource.
-
-4. Adjust the default CIDR value (10.0.0.0/16) by clicking the IPv4 CIDR block field and using the CIDR joystick. Move through CIDR blocks within the /16 network mask.
-
-5. Choose the number of Availability Zones (AZs) up to 3, affecting the count of public and private subnets to be created.
-
-![Create VPC](/images/17/0003.jpg?featherlight=false&width=90pc)
-
-6. For a three-AZ high-availability VPC, select 6 private subnets. In the preview, verify the relationships and routes in the subnets.
-
-7. Add NAT gateways and VPC endpoints as needed. Set the number of NAT gateways per AZ for high availability. Opt for the S3 Gateway endpoint for more secure Amazon S3 traffic routing.
-
-8. Easily assign additional tags to VPC resources. Click "Add new tag," provide a Key (e.g., "environment") and Value (e.g., "test").
-
-![Create VPC](/images/17/0004.jpg?featherlight=false&width=90pc)
-
-9. At the bottom of the page, select "Create VPC" and monitor the resource creation process, including the IDs of the resources being generated. Validate resources before proceeding.
-
-![Create VPC](/images/17/0005.jpg?featherlight=false&width=90pc)
-
-10. Once resources are created, click "View VPC" to access the VPC resource map and visualize the setup.
+Bạn có thể sử dụng bản đồ tài nguyên VPC để tạo, chỉnh sửa và xóa các tài nguyên VPC, cũng như hình dung luồng truyền dữ liệu mạng giữa chúng. Điều này rất hữu ích khi bạn làm việc với cấu hình VPC phức tạp và muốn đảm bảo mạng của bạn.
 
 ![Create VPC](/images/17/0006.jpg?featherlight=false&width=90pc)

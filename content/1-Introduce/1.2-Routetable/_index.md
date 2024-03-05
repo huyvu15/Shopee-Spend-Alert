@@ -1,21 +1,24 @@
 ---
-title : "Route Table"
+title : "Crawl data"
 date :  "`r Sys.Date()`" 
 weight : 2 
 chapter : false
 pre : " <b> 1.2 </b> "
 ---
 
-## Route Table
+#### Crawl data
 
-The **Route Table**, also referred to as the *routing table*, is responsible for providing routing instructions within a network and is associated with specific subnets.
+![Route Tables](/images/1-Introduce/crawl.png?featherlight=false&width=30pc)
 
-For instance, in the scenario where a Virtual Private Cloud (VPC) is established with the network layer `10.10.0.0/16`, along with two subnets, `10.10.1.0/24` and `10.10.2.0/24`, each default subnet will be allocated a default route table.
 
-Inside the route table, there will exist a route entry with the following details:
-- **Destination**: `10.10.0.0/16`
-- **Target**: `local`
+Crawl data là quá trình tự động thu thập thông tin từ các trang web trên Internet. Để hiểu cách nó hoạt động, hãy tưởng tượng rằng bạn có một robot trên mạng Internet, nhiệm vụ của nó là thu thập thông tin từ các trang web.
 
-This particular route entry signifies that resources created within the same VPC can communicate with each other.
+Robot bắt đầu bằng việc điều hướng qua các trang web, như một người du lịch dạo chơi qua các con đường trên bản đồ. Khi robot đến một trang web, nó quét qua nội dung của trang đó, giống như việc bạn đọc qua các trang sách để tìm kiếm thông tin. Robot phân tích các phần tử của trang web như các liên kết, văn bản, hình ảnh, video, và dữ liệu cấu trúc.
 
-![Route Tables](/images/1-Introduce/routetable.png?featherlight=false&width=50pc)
+Sau đó, robot thu thập dữ liệu từ các phần của trang web chứa thông tin bạn quan tâm, như việc bạn ghi chú lại những điều quan trọng khi đọc sách. Dữ liệu này có thể là văn bản, hình ảnh, video, hoặc dữ liệu có cấu trúc như bảng biểu.
+
+Quá trình này được lặp lại cho đến khi robot đã thu thập đủ thông tin hoặc đã truy cập qua tất cả các trang web trong danh sách. Đối với những trang web thường xuyên cập nhật thông tin, bạn có thể lập lịch cho robot để thực hiện lại quá trình crawl định kỳ để đảm bảo dữ liệu của bạn luôn cập nhật.
+
+Tuy nhiên, việc crawl data cần phải được thực hiện cẩn thận và tuân thủ các quy định về bản quyền và chính sách riêng tư của các trang web. Vi phạm các quy định này có thể dẫn đến hậu quả pháp lý.
+
+Cứ cái gì nhìn thấy trên web thì đều có thể lấy về bằng code được .

@@ -1,46 +1,38 @@
 ---
-title : "Create VPC"
-date : "`r Sys.Date()`"
-weight : 1
+title : "Tạo S3 Bucket"
+date :  "`r Sys.Date()`" 
+weight : 1 
 chapter : false
 pre : " <b> 3.1 </b> "
 ---
-## Create VPC
 
-1. Access the **AWS Management Console** interface:
-   - Locate and click on **VPC**
-   - Choose **VPC**
+#### Tạo S3 Bucket
 
-![Create VPC](/images/1/0001.png?featherlight=false&width=90pc)
+1. Truy cập giao diện **AWS Management Console**
 
-2. Within the **VPC** interface:
-   - Select **Your VPC**
-   - Click on **Create VPC**
+   - Tìm **S3**
+   - Chọn **Bucket**
+   - Chọn **Create Bucket**
 
-![Create VPC](/images/1/0002.png?featherlight=false&width=90pc)
+![Create bucket](/images/1/1.png?featherlight=false&width=90pc)
 
-3. Follow these steps to create a VPC:
-   - Choose **Resource** and select **VPC only**
-   - Enter **Name tag** as **`ASG`**
-   - Set **IPv4 CIDR** to **`10.10.0.0/16`**
+![Create bucket](/images/1/2.png?featherlight=false&width=90pc)
 
-![Create VPC](/images/1/0003.png?featherlight=false&width=90pc)
 
-::: warning Important Note
-For the **Tenancy** configuration, it's recommended to keep the default setting. Switching to **Dedicated** may restrict the creation of certain **EC2 Instance types** within the VPC, as they require the default tenancy.
-:::
 
-4. Click on **Create VPC**
+2. Điền các thông tin cho **Buket**
 
-![Create VPC](/images/1/0004.png?featherlight=false&width=90pc)
+   - Đặt tên Bucket là **```workshoph```**
 
-5. Complete the process of creating the **VPC**
 
-![Create VPC](/images/1/0005.png?featherlight=false&width=90pc)
+![Create VPC](/images/1/3.png?featherlight=false&width=90pc)
 
-6. Review the details of the newly created VPC. Ensure that **Enable DNS resolution and DNS Hostname** is disabled:
-   - Go to **Edit VPC settings**
-   - Navigate to **DNS settings**
-   - Choose and then click **Save**
+{{% notice warning %}}
+Tên Bucket phải là duy nhất và không được trùng với tên các bucket đã có.
+{{% /notice %}}
 
-![Create VPC](/images/1/0006.png?featherlight=false&width=90pc)
+3. Kéo xuống cuối và chọn **Create Bucket** 
+
+![Create VPC](/images/1/4.png?featherlight=false&width=90pc)
+
+

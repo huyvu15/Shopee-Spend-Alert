@@ -5,25 +5,29 @@ weight : 1
 chapter : false
 pre : " <b> 2.1 </b> "
 ---
+#### Security Group
 
-## Security Group
+Một số đặc điểm cơ bản của Security group:
 
-### Basic Features of Security Group
+* Chỉ có thể thêm vào các Allow rule, mà không thể bổ sung Deny rule.
+* Có thể chỉ định các rule riêng biệt cho lưu lượng truy cập đi ra hoặc đi vào.
+* Một Security group mới được tạo ra không có sẵn Inbound rules. 
+  Do đó, tại thời điểm ban đầu Instance sẽ không cho phép bất cứ lưu lượng truy cập nào được phép đi vào, đòi hỏi ta phải bổ sung Inbound rule để cấp phép truy cập.
+* Mặc định, Security group có sẵn Outbound rule cho phép mọi lưu lượng được phép đi ra khỏi Instance. 
+Rule này có thể được chỉnh sửa (xóa) và bổ sung các Outbound rule cụ thể, chỉ rõ lưu lượng nào xuất phát từ Instance được phép đi ra ngoài.
+Nếu SG không có Outbound rule thì không một lưu lượng nào được phép đi ra khỏi Instance. 
+* Security groups là một dịch vụ Stateful - nghĩa là nếu lưu lượng đi vào Instance đã được cấp phép thì lưu lượng cũng có thể đi ra ngoài Instance, và ngược lại, bất kể Outbound rule như thế nào.
+* Các Instance chỉ có thể giao tiếp được với nhau khi và chỉ khi chúng được liên kết với Security group cho phép kết nối, hoặc Security group mà Instance có liên kết chứa Rule cho phép lưu lượng try cập (ngoại trừ Security group mặc định với có các rule  mặc định cho phép toàn bộ lưu lượng được truy cập).
+* Security group được liên kết với các network interface. 
+Sau khi Instance đã được khởi tạo, ta vẫn có thể thay đổi Security group đã được gán với Instance, điều này cũng thay đổi security group đang được gán với primary network interface tương ứng. 
 
-- **Allow Rules Only:** Only Allow rules can be added; Deny rules cannot be added.
-- **Separate Rules for Traffic:** Separate rules can be specified for outgoing and incoming traffic.
-- **Initial Inbound Rules:** A newly created Security group starts with no Inbound rules. Initially, the instance won't allow any traffic in, requiring the addition of an Inbound rule to enable access.
-- **Default Outbound Rule:** By default, the Security group includes an Outbound rule that permits all traffic to leave the instance. This rule can be modified or replaced with specific Outbound rules to control outgoing traffic originating from the instance. If there's no Outbound rule, no traffic is allowed to exit the instance.
-- **Stateful Service:** Security groups are stateful services, meaning that if incoming traffic is allowed, outgoing traffic is automatically permitted, and vice versa, regardless of the Outbound rule.
-- **Instance Communication:** Instances can communicate only if they are associated with a Security group that permits connections, or if a Security group associated with the instance contains a rule allowing traffic. The default Security group has default rules allowing all traffic.
-- **Association with Network Interfaces:** Security groups are associated with network interfaces. After initialization, you can change the Security group assigned to an instance, which will also update the Security group for the corresponding primary network interface.
+#### Security group Rule
 
-## Security Group Rule
+Rule được sinh ra để cấp quyền truy cập cho lưu lượng đi vào hoặc đi ra khỏi Instance. Quyền truy cập này có thể được áp dụng cho một CIDR cụ thể hoặc cho một Security group nằm trong cùng một VPC hoặc nằm trong một VPC khác nhưng có kết nối peering đã được khởi tạo. 
 
-A Security group rule is created to grant access to traffic entering or leaving an instance. This access can apply to a specific CIDR or to a Security group in the same VPC, or even to a Security group in another VPC connected by peering.
-
-### Components of Security Group Rule
-
-- **Inbound Rules:** These include the source of the traffic and the destination port or port range. The source can be another security group, an IPv4 or IPv6 CIDR range, or an IPv4/IPv6 address.
-- **Outbound Rules:** These include the destination of the traffic and the destination port or port range. The destination can be another security group, an IPv4 or IPv6 CIDR range, an IPv4/IPv6 address, or a service identified by a prefix (e.g. igw_xxx) in the prefix ID list (where services are identified by the prefix ID - the name and ID of the available service in the region).
-- **Standard Protocols:** Each protocol has a standard protocol number associated with it. For instance, SSH is associated with port number 22.
+Các thành phần cơ bản của Security group rule:
+* (Chỉ đối với Inbound rules) gồm điểm xuất phát (nguồn) của lưu lượng truy cập và port đích hoặc dải port.
+Nguồn có thể là một security group khác, là một dải IPv4 hoặc IPv6 CIDR hoặc đơn thuẩn là một địa chỉ IPv4 hoặc IPv6.
+* (Chỉ đối với Outbound rules) gồm đích đến của lưu lượng và port đích hay dải port đích.
+Đích đến có thể là một security group khác, là một dải IPv4 hoặc IPv6 CIDR hoặc đơn thuẩn là một địa chỉ IPv4 hoặc IPv6 hoặc là một dịch vụ bắt đầu bằng một tiền tố (ví dụ: igw_xxx) nằm trong danh sách prefix ID(một dịch vụ được xác định bởi prefix ID - tên và ID của dịch vụ khả dụng trong region).
+* Mọi giao thức đều có một số giao thức chuẩn. Ví dụ: SSH là 22,..

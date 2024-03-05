@@ -1,21 +1,20 @@
 ---
-title : "Preparation steps"
-date : "`r Sys.Date()`"
-weight : 3
+title : "Các bước chuẩn bị"
+date :  "`r Sys.Date()`" 
+weight : 3 
 chapter : false
 pre : " <b> 3. </b> "
 ---
 
-## Preparation steps
+#### Các bước chuẩn bị
 
-In this exercise, we will be constructing a model based on the following diagram:
+Trong bài thực hành này, chúng ta sẽ xây dựng một mô hình theo sơ đồ bên dưới:
 
-![NAT Gateway](/images/3-Prerequisite/vpc.png?featherlight=false&width=90pc)
+![Create VPC](/images/schema.png?featherlight=false&width=90pc)
 
-## Content
 
-1. [Create VPC](3.1-createvpc)
-2. [Create Subnet](3.2-createsubnet)
-3. [Create Internet Gateway](3.3-createigw)
-4. [Create Route Table](3.4-createroutetable)
-5. [Create Security Group](3.5-createsecuritygroup)
+#### Nội dung
+
+1. [Tạo S3 Bucket](https://000003.awsstudygroup.com/vi/3-prerequiste/3.1-createvpc/)
+2. [Tạo Lambda Function](https://000003.awsstudygroup.com/vi/3-prerequiste/3.2-createsubnet/)
+3. [Add Layer](https://000003.awsstudygroup.com/vi/3-prerequiste/3.3-createigw/)
